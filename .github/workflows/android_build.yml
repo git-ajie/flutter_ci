@@ -1,0 +1,46 @@
+name: Android Build
+
+#触发条件 当推送或拉取请求到master分支时触发
+on:
+  push:
+    branches: [master]
+  pull_request:
+    branches:
+      - master
+
+# 权限
+# 读取代码内容
+permissions: 
+  contents: read
+
+jobs:
+  build-android:
+    runs-on: ubuntu-latest
+    steps:
+      # 检出代码
+      - name: Checkout code
+        uses: actions/checkout@v6
+
+      #设置Java环境
+      - name: Set up Java
+        uses: actions/setup-java@v3
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+          cache: 'gradle'
+      
+      - name: Set up Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: '3.29.0'
+          channel: 'stable'
+          cache: true
+      
+      - name: Get dependencies
+        run: flutter pub get
+      
+      - name: Analyze code
+        run: flutter analyze
+
+      - name: Build Android
+        run: flutter build apk --release
