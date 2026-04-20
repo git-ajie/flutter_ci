@@ -40,7 +40,7 @@ jobs:
 
       # 检查代码格式
       - name: Check formatting
-        run: flutter format --set-exit-if-change .
+        run: dart format --set-exit-if-changed .
 
       # 静态分析
       - name: Analyze code
