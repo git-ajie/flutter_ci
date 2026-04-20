@@ -4,10 +4,10 @@ name: Flutter CI
 #触发条件 当推送或拉取请求到main分支或dev分支时触发
 on:
   push:
-    branches: [main, dev]
+    branches: [master, dev]
   pull_request:
     branches:
-      - main
+      - master
 
 # 权限
 # 读取代码内容
